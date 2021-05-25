@@ -65,10 +65,15 @@ jobs:
         python --version
         pip --version
         pip install wheel "numpy<1.17" --quiet
-        pip install --requirement requirements.txt --upgrade --prefer-binary --compile
+        pip install --requirement requirements.txt --upgrade --prefer-binary
         pip install --requirement tests/requirements.txt  --upgrade-strategy only-if-needed
         pip list
       shell: bash
+
+    - name: Extra GCO for Windows
+      if: runner.os == 'Windows'
+      run: |
+        pip install https://github.com/Borda/pyGCO/archive/refs/heads/master.zip
 
     - name: Build
       run: |
