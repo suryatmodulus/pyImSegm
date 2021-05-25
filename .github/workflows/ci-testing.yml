@@ -77,8 +77,8 @@ jobs:
         cd pyGCO
         python setup.py build_ext
         python setup.py install
-        cd ..
-        rm pyGCO
+        #cd ..
+        #rmdir pyGCO
 
     - name: Build
       run: |
