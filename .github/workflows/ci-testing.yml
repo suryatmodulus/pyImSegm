@@ -73,7 +73,12 @@ jobs:
     - name: Extra GCO for Windows
       if: runner.os == 'Windows'
       run: |
-        pip install https://github.com/Borda/pyGCO/archive/refs/heads/master.zip
+        git clone https://github.com/Borda/pyGCO.git
+        cd pyGCO
+        python setup.py build_ext
+        python setup.py install
+        cd ..
+        rm pyGCO
 
     - name: Build
       run: |
