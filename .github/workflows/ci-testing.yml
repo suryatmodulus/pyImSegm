@@ -45,16 +45,6 @@ jobs:
             open(fpath, 'w').write(req)
       shell: python
 
-    - name: GCO for Windows
-      if: runner.os == 'windows'
-      run: |
-        pip install "numpy<1.17"
-        git clone https://github.com/Borda/pyGCO.git
-        cd pyGCO
-        python setup.py build_ext
-        python setup.py install
-      shell: bash
-
     # Note: This uses an internal pip API and may not always work
     # https://github.com/actions/cache/blob/master/examples.md#multiple-oss-in-a-workflow
     - name: Get pip cache
@@ -69,6 +59,16 @@ jobs:
         key: ${{ runner.os }}-pip-py${{ matrix.python-version }}-${{ matrix.requires }}-${{ hashFiles('requirements.txt') }}
         restore-keys: |
           ${{ runner.os }}-pip-py${{ matrix.python-version }}-${{ matrix.requires }}-
+
+    - name: GCO for Windows
+      if: runner.os == 'windows'
+      run: |
+        pip install "numpy<1.17"
+        git clone https://github.com/Borda/pyGCO.git
+        cd pyGCO
+        python setup.py build_ext
+        python setup.py install
+      shell: bash
 
     - name: Install dependencies
       run: |
