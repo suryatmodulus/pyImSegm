@@ -68,6 +68,7 @@ jobs:
         cd pyGCO
         python setup.py build_ext
         python setup.py install
+        python -c "fname = 'requirements.txt' ; lines = [line for line in open(fname).readlines() if not line.startswith('gco-wrapper')] ; open(fname, 'w').writelines(lines)"
       shell: bash
 
     - name: Install dependencies
