@@ -45,13 +45,14 @@ jobs:
             open(fpath, 'w').write(req)
       shell: python
 
-    - name: Drop GCO for Windows
+    - name: GCO for Windows
       if: runner.os == 'windows'
       run: |
-        fname = 'requirements.txt'
-        lines = [line for line in open(fname).readlines() if not line.startswith('gco')]
-        open(fname, 'w').writelines(lines)
-      shell: python
+        git clone https://github.com/Borda/pyGCO.git
+        cd pyGCO
+        python setup.py build_ext
+        python setup.py install
+      shell: bash
 
     # Note: This uses an internal pip API and may not always work
     # https://github.com/actions/cache/blob/master/examples.md#multiple-oss-in-a-workflow
